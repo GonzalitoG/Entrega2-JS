@@ -1,54 +1,120 @@
-// Variables y arrays
-const productos = ["Café", "Té", "Chocolate"];
-const precios = [100, 80, 120];
-let carrito = [];
-let total = 0;
+// Array de objetos para productos
+const productos = [
+    { id: 1, nombre: "Café", precio: 100 },
+    { id: 2, nombre: "Té", precio: 80 },
+    { id: 3, nombre: "Chocolate", precio: 120 }
+];
 
-// Función para mostrar los productos disponibles
+// Carrito inicializado con storage
+let carrito = JSON.parse(localStorage.getItem("carrito")) || [];
+
+// Actualizar el DOM al cargar la página
+document.addEventListener("DOMContentLoaded", () => {
+    mostrarProductos();
+    actualizarCarrito();
+});
+
+// Mostrar productos en el DOM
 function mostrarProductos() {
-    let lista = "Productos disponibles:\n";
-    for (let i = 0; i < productos.length; i++) {
-        lista += `${i + 1}. ${productos[i]} - $${precios[i]}\n`;
-    }
-    return lista;
+    const productosLista = document.getElementById("productos-lista");
+    productosLista.innerHTML = "";
+
+    productos.forEach(producto => {
+        const div = document.createElement("div");
+        div.innerHTML = `
+            <h3>${producto.nombre}</h3>
+            <p>Precio: $${producto.precio}</p>
+            <button onclick="agregarAlCarrito(${producto.id})">Agregar al carrito</button>
+        `;
+        productosLista.appendChild(div);
+    });
 }
 
-// Función para agregar productos al carrito
-function agregarProducto() {
-    let seleccion = parseInt(prompt(mostrarProductos() + "Selecciona un producto por su número (1, 2 o 3):"));
-
-    if (seleccion > 0 && seleccion <= productos.length) {
-        carrito.push(productos[seleccion - 1]);
-        total += precios[seleccion - 1];
-        alert(`Agregaste ${productos[seleccion - 1]} al carrito. Total: $${total}`);
-        console.log("Producto seleccionado: ", productos[seleccion - 1]);
-        console.log("Carrito actual: ", carrito);
-    } else {
-        alert("Selección inválida. No se ha agregado ningún producto.");
-        console.log("El usuario ingresó una selección inválida.");
-    }
-}
-
-
-// Función para confirmar la compra
-function confirmarCompra() {
-    if (carrito.length > 0) {
-        let confirmar = confirm(`Estás comprando: ${carrito.join(", ")}\nTotal a pagar: $${total}\n¿Deseas confirmar la compra?`);
-        if (confirmar) {
-            alert("¡Compra realizada con éxito!");
+// Agregar producto al carrito y actualizar storage
+function agregarAlCarrito(id) {
+    const producto = productos.find(prod => prod.id === id);
+    if (producto) {
+        const productoEnCarrito = carrito.find(prod => prod.id === id);
+        if (productoEnCarrito) {
+            productoEnCarrito.cantidad += 1;
         } else {
-            alert("Compra cancelada.");
+            carrito.push({ ...producto, cantidad: 1 });
         }
-    } else {
-        alert("El carrito está vacío.");
+        localStorage.setItem("carrito", JSON.stringify(carrito));
+        actualizarCarrito();
     }
 }
-// Ciclo de compra
-let seguirComprando = true;
 
-while (seguirComprando) {
-    agregarProducto();
-    seguirComprando = confirm("¿Deseas agregar otro producto?");
+// Actualizar carrito en el DOM
+function actualizarCarrito() {
+    const carritoLista = document.getElementById("carrito-lista");
+    carritoLista.innerHTML = "";
+
+    carrito.forEach((producto, index) => {
+        const li = document.createElement("li");
+        li.textContent = `${producto.nombre} - $${producto.precio} (x${producto.cantidad})`;
+
+        const botonEliminar = document.createElement("button");
+        botonEliminar.textContent = "Eliminar una unidad";
+        botonEliminar.onclick = () => eliminarProducto(index);
+
+        li.appendChild(botonEliminar);
+        carritoLista.appendChild(li);
+    });
+
+    const total = carrito.reduce((acc, prod) => acc + (prod.precio * prod.cantidad), 0);
+    document.getElementById("total").textContent = `Total: $${total}`;
 }
 
-confirmarCompra();
+// Eliminar producto del carrito
+function eliminarProducto(index) {
+    const producto = carrito[index];
+    if (producto.cantidad > 1) {
+        producto.cantidad -= 1;
+    } else {
+        carrito.splice(index, 1);
+    }
+    localStorage.setItem("carrito", JSON.stringify(carrito));
+    actualizarCarrito();
+}
+
+// Confirmar compra
+document.getElementById("btn-confirmar").addEventListener("click", () => {
+    if (carrito.length === 0) {
+        mostrarModal("El carrito está vacío.");
+        return;
+    }
+
+    const totalCompra = carrito.reduce((acc, p) => acc + (p.precio * p.cantidad), 0);
+    const mensaje = carrito.map(p => `${p.nombre} x${p.cantidad} unidades`).join(", ");
+
+    mostrarModal(`Estás comprando: ${mensaje}\nTotal a pagar: $${totalCompra}`);
+});
+
+// Función para mostrar modal de confirmación
+function mostrarModal(mensaje) {
+    const modalMensaje = document.getElementById("modal-mensaje");
+    modalMensaje.textContent = mensaje;
+
+    const modal = document.getElementById("modal-confirmacion");
+    modal.style.display = "block";
+
+    document.getElementById("btn-confirmar-modal").onclick = () => { // Usar el nuevo ID aquí
+        carrito = [];
+        localStorage.removeItem("carrito");
+        actualizarCarrito();
+        modal.style.display = "none";
+        mostrarModal("¡Compra realizada con éxito!");
+    };
+    document.getElementById("btn-cancelar").onclick = () => {
+        modal.style.display = "none";
+    };
+}
+
+// Cerrar el modal cuando se hace clic fuera de él
+window.onclick = (event) => {
+    const modal = document.getElementById("modal-confirmacion");
+    if (event.target === modal) {
+        modal.style.display = "none";
+    }
+};

@@ -1,0 +1,131 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+/* Estilos generales */
+body {
+    font-family: 'Arial', sans-serif;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    background-color: #f0f8ff; /* Color de fondo suave */
+}
+
+/* Encabezado */
+header {
+    background-color: #ff7f50; /* Color vibrante */
+    color: white;
+    text-align: center;
+    padding: 20px;
+}
+
+h1 {
+    margin: 0;
+    font-size: 2.5rem;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+/* Contenedor de productos */
+#productos {
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    margin: 20px;
+}
+
+#productos h2 {
+    color: #ff6347; /* Un color tomate */
+    margin-bottom: 20px;
+}
+
+#productos-lista {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+}
+
+#productos-lista div {
+    border: 2px solid #ff6347; /* Borde con color vivo */
+    padding: 15px;
+    text-align: center;
+    width: 200px;
+    border-radius: 8px;
+    background-color: #ffefd5; /* Color de fondo suave */
+}
+
+button {
+    padding: 10px 20px;
+    background-color: #28a745; /* Verde brillante */
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1rem;
+    transition: background-color 0.3s ease;
+}
+
+button:hover {
+    background-color: #218838; /* Verde más oscuro en hover */
+}
+
+/* Carrito */
+#carrito {
+    padding: 20px;
+    background-color: #fff;
+    margin-top: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+#carrito h2 {
+    color: #ff6347; /* Un color tomate */
+    margin-bottom: 20px;
+}
+
+#carrito ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+#carrito li {
+    margin-bottom: 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 1.2rem;
+}
+
+/* Modal */
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    overflow: auto;
+}
+
+.modal-contenido {
+    background-color: #fff;
+    margin: 15% auto;
+    padding: 20px;
+    width: 80%;
+    max-width: 400px;
+    text-align: center;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.modal button {
+    margin-top: 10px;
+    background-color: #dc3545; /* Rojo brillante */
+}
+
+.modal button:hover {
+    background-color: #c82333; /* Rojo más oscuro en hover */
+}
