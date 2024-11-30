@@ -1,0 +1,67 @@
+[
+    {
+      "id": 1,
+      "nombre": "Café",
+      "precio": 100
+    },
+    {
+      "id": 2,
+      "nombre": "Té",
+      "precio": 80
+    },
+    {
+      "id": 3,
+      "nombre": "Chocolate",
+      "precio": 120
+    },
+    {
+      "id": 4,
+      "nombre": "Latte",
+      "precio": 150
+    },
+    {
+      "id": 5,
+      "nombre": "Capuchino",
+      "precio": 160
+    },
+    {
+      "id": 6,
+      "nombre": "Matcha",
+      "precio": 140
+    },
+    {
+      "id": 7,
+      "nombre": "Muffin",
+      "precio": 90
+    },
+    {
+      "id": 8,
+      "nombre": "Brownie",
+      "precio": 110
+    },
+    {
+      "id": 9,
+      "nombre": "Croissant",
+      "precio": 130
+    },
+    {
+      "id": 10,
+      "nombre": "Sándwich",
+      "precio": 200
+    },
+    {
+      "id": 11,
+      "nombre": "Galletas",
+      "precio": 70
+    },
+    {
+      "id": 12,
+      "nombre": "Smoothie",
+      "precio": 180
+    },
+    {
+      "id": 13,
+      "nombre": "Espresso",
+      "precio": 120
+    }
+  ]

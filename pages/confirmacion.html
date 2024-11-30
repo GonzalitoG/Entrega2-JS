@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Confirmar Compra</title>
+     <!-- CSS -->
+     <link rel="stylesheet" href="../css/main.css" />
+     <!-- JS -->
+     <script defer src="../js/confirmacion.js"></script>
+</head>
+<body>
+    <header>
+        <h1>Confirmación de Compra</h1>
+    </header>
+
+    <main>
+        <!-- Volver al Index -->
+        <section>
+            <a href="/index.html" id="btn-confirmar">Volver al Catalogo</a>
+        </section>
+        <!-- Lista de productos del carrito -->
+        <section id="carrito-lista">
+            <h2>Productos en tu carrito</h2>
+            <ul id="productos-carrito"></ul>
+            <p id="total">Total: $0</p>
+        </section>
+
+        <!-- Formulario para ingresar los datos del usuario -->
+        <section id="formulario-envio">
+            <h2>Datos de envío</h2>
+            <form id="form-envio">
+                <div class="form-group">
+                    <label for="nombre">Nombre:</label>
+                    <input type="text" id="nombre" required>
+                </div>
+                <div class="form-group">
+                    <label for="apellido">Apellido:</label>
+                    <input type="text" id="apellido" required>
+                </div>
+                <div class="form-group">
+                    <label for="email">Correo electrónico:</label>
+                    <input type="email" id="email" required>
+                </div>
+                <div class="form-group">
+                    <label for="direccion">Dirección:</label>
+                    <input type="text" id="direccion" required>
+                </div>
+                <button type="submit">Confirmar Compra</button>
+            </form>
+        </section>
+    </main>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+</body>
+</html>
